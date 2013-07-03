@@ -135,6 +135,15 @@ def create_program(p):
         p.manage_permission(permission,
                             roles=[],
                             acquire=0)
+    o = p[oId]
+    permission = 'apyb.conference: Add Track'
+    o.manage_permission(permission,
+                        roles=['Manager', 'Editor'],
+                        acquire=0)
+    permission = 'apyb.conference: Add Speaker'
+    o.manage_permission(permission,
+                        roles=['Manager', 'Editor', 'Member'],
+                        acquire=0)
     logger.info('Program created')
 
 

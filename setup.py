@@ -46,7 +46,6 @@ setup(
     install_requires=[
         'apyb.conference',
         'collective.cover',
-        'collective.jsonmigrator',
         'collective.polls',
         'collective.upload',
         'five.grok',

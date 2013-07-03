@@ -118,29 +118,24 @@ def create_sponsors(p):
     logger.info('Sponsors folder created')
 
 
-def create_speakers(p):
-    ''' Create Speakers folder
+def create_program(p):
+    ''' Create Program
     '''
     oIds = p.objectIds()
-    oId = 'speakers'
+    oId = 'program'
     if not oId in oIds:
-        permission = 'apyb.conference: Add Speaker'
-        title = u'Speakers'
-        desc = u'Our speakers'
-        _createObjectByType('Folder', p, id=oId,
+        permission = 'apyb.conference: Add Program'
+        p.manage_permission(permission,
+                            roles=['Manager', 'Editor'],
+                            acquire=0)
+        title = u'Program'
+        desc = u'Conference Program'
+        _createObjectByType('program', p, id=oId,
                             title=title, description=desc)
-    o = p[oId]
-    o.manage_permission(permission,
-                        roles=['Manager', 'Editor', 'Member'],
-                        acquire=0)
-    o.setConstrainTypesMode(constraintypes.ENABLED)
-    o.setLocallyAllowedTypes(['speaker'])
-    o.setImmediatelyAddableTypes(['speaker'])
-    o.setLayout('folder_summary_view')
-    o.setLanguage('en')
-    # Publish content
-    p.portal_workflow.doActionFor(o, 'publish')
-    logger.info('Speakers folder created')
+        p.manage_permission(permission,
+                            roles=[],
+                            acquire=0)
+    logger.info('Program created')
 
 
 def setup_portal(context):
@@ -159,5 +154,5 @@ def setup_portal(context):
     create_registrations(site)
     # Create Sponsors
     create_sponsors(site)
-    # Create Speakers
-    create_speakers(site)
+    # Create Program
+    create_program(site)

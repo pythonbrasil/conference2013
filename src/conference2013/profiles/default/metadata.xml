@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<metadata>
+  <version>1000</version>
+  <dependencies>
+    <dependency>profile-plone.app.theming:default</dependency>
+    <dependency>profile-Products.PloneFormGen:default</dependency>  
+    <dependency>profile-sc.social.like:default</dependency>
+    <dependency>profile-collective.upload:default</dependency>
+    <dependency>profile-collective.cover:default</dependency>
+    <dependency>profile-apyb.conference:default</dependency>
+    <dependency>profile-conference2013:initcontent</dependency>
+  </dependencies>
+</metadata>

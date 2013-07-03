@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
-from plone.app.layout.navigation.interfaces import INavigationRoot
 from conference2013.config import PROJECTNAME
+from plone.app.layout.navigation.interfaces import INavigationRoot
 from Products.ATContentTypes.lib import constraintypes
 from Products.CMFPlone.utils import _createObjectByType
 from Products.Five.utilities.marker import mark

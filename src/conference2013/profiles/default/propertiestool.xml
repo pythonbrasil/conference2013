@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<object name="portal_properties" meta_type="Plone Properties Tool">
+ <object name="site_properties" meta_type="Plone Property Sheet">
+  <property name="localTimeFormat" type="string">%d/%m/%Y</property>
+  <property name="localLongTimeFormat"
+     type="string">%d/%m/%Y %H:%M</property>
+  <property name="localTimeOnlyFormat" type="string">%H:%M</property>
+  <property name="default_language" type="string">en</property>
+  <property name="default_charset" type="string">utf-8</property>
+  <property name="available_editors" type="lines">
+   <element value="None"/>
+   <element value="TinyMCE"/>
+  </property>
+  <property name="default_editor" type="string">TinyMCE</property>
+  <property name="exposeDCMetaTags" type="boolean">True</property>
+  <property name="verify_login_name" type="boolean">True</property>
+  <property name="many_users" type="boolean">True</property>
+  <property name="many_groups" type="boolean">False</property>
+  <property name="enable_sitemap" type="boolean">True</property>
+  <property name="enable_link_integrity_checks" type="boolean">True</property>
+  <property name="webstats_js" type="text"></property>
+  <property name="external_links_open_new_window" type="string">True</property>
+  <property name="redirect_links" type="boolean">True</property>
+  <property name="use_email_as_login" type="boolean">True</property>
+  <property name="user_registration_fields" type="lines">
+   <element value="fullname"/>
+   <element value="username"/>
+   <element value="email"/>
+   <element value="description"/>
+   <element value="home_page"/>
+   <element value="password"/>
+   <element value="mail_me"/>
+  </property>
+  <property name="enable_checkout_workflow" type="boolean">False</property>
+  <property name="checkout_workflow_policy"
+     type="string">checkout_workflow_policy</property>
+ </object>
+</object>

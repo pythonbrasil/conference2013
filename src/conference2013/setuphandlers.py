@@ -1,13 +1,33 @@
 # -*- coding:utf-8 -*-
 from conference2013.config import PROJECTNAME
+from plone.app.contentrules.rule import get_assignments
 from plone.app.layout.navigation.interfaces import INavigationRoot
+from plone.contentrules.engine.assignments import RuleAssignment
+from plone.contentrules.engine.interfaces import IRuleAssignmentManager
+from plone.contentrules.engine.interfaces import IRuleStorage
 from Products.ATContentTypes.lib import constraintypes
 from Products.CMFPlone.utils import _createObjectByType
 from Products.Five.utilities.marker import mark
+from zope.component import getUtility
 
 import logging
 
 logger = logging.getLogger(PROJECTNAME)
+
+TRACKS = [
+    ('keynotes', u'Keynotes'),
+    ('pb_cloud', u'Cloud, System Administration and Networks'),
+    ('pb_community_education', u'Community and Education'),
+    ('pb_django', u'Django'),
+    ('pb_enterprise_management', u'Enterprise and Management'),
+    ('pb_media_networks', u'Media and Networks'),
+    ('pb_mobility_embedded_systems', u'Mobility and Embedded Systems'),
+    ('plone', u'Plone Conference'),
+    ('pyramid', u'Pyramid'),
+    ('pb_scipy', u'Scipy'),
+    ('pb_web_wevelopment', u'Web Development'),
+    ('pb_other', u'Other')
+]
 
 
 REMOVE = [
@@ -145,6 +165,33 @@ def create_program(p):
                         roles=['Manager', 'Editor', 'Member'],
                         acquire=0)
     logger.info('Program created')
+    # Add Tracks
+    for track_id, track_title in TRACKS:
+        _createObjectByType('track', o, id=track_id,
+                            title=track_title)
+        logger.info('Track %s created' % track_title)
+
+
+def setup_contentrules(program):
+    assignable = IRuleAssignmentManager(program, None)
+    if assignable is None:
+        return None
+    storage = getUtility(IRuleStorage)
+    path = '/'.join(program.getPhysicalPath())
+    names = [
+        'talk-submited',
+        'talk-accepted',
+        'training-submited',
+        'training-accepted',
+    ]
+    for name in names:
+        assignment = assignable.get(name, None)
+        if assignment is None:
+            assignment = assignable[name] = RuleAssignment(name)
+        assignment.enabled = True
+        assignment.bubbles = True
+
+        get_assignments(storage[name]).insert(path)
 
 
 def setup_portal(context):
@@ -165,3 +212,5 @@ def setup_portal(context):
     create_sponsors(site)
     # Create Program
     create_program(site)
+    # Setup content rules
+    setup_contentrules(site.program)

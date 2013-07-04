@@ -1,0 +1,201 @@
+<?xml version="1.0"?>
+<contentrules>
+ <rule name="talk-submited" title="Talk submission received"
+    description="Talk submission received" enabled="True"
+    event="Products.CMFCore.interfaces.IActionSucceededEvent"
+    stop-after="False">
+  <conditions>
+   <condition type="plone.conditions.PortalType">
+    <property name="check_types">
+     <element>talk</element>
+    </property>
+   </condition>
+   <condition type="plone.conditions.WorkflowState">
+    <property name="wf_states">
+     <element>created</element>
+    </property>
+   </condition>
+  </conditions>
+  <actions>
+   <action type="plone.actions.Mail">
+    <property name="source"/>
+    <property name="message">Hello ${user_fullname},
+     
+         (Versão em Português abaixo)
+         
+         Thank you for submitting the talk "${title}" to our conference.
+     
+         Submissions will be open until July 31st and soon after that all selected talks will be published.
+     
+     Best Regards,
+     Organizers Team
+     Plone Conference 2013 / PythonBrasil [9]
+     
+     ===============================================================
+     
+     Olá ${user_fullname},
+         
+         Obrigado por submeter sua palestra "${title}" para nossa conferência.
+     
+         A chamada de trabalhos ficará aberta até 31 de Julho e logo em seguida anunciaremos as palestras selecionadas.
+     
+     
+     Gratos,
+     Organização
+     Plone Conference 2013 / PythonBrasil [9]</property>
+    <property name="subject">Talk submission received</property>
+    <property name="recipients">${user_email}</property>
+    <property name="exclude_actor">False</property>
+   </action>
+  </actions>
+ </rule>
+
+  <rule name="talk-accepted" title="Talk submission accepted"
+    description="Talk accepted" enabled="True"
+    event="Products.CMFCore.interfaces.IActionSucceededEvent"
+    stop-after="False">
+  <conditions>
+   <condition type="plone.conditions.PortalType">
+    <property name="check_types">
+     <element>talk</element>
+    </property>
+   </condition>
+   <condition type="plone.conditions.WorkflowState">
+    <property name="wf_states">
+     <element>accepted</element>
+    </property>
+   </condition>
+  </conditions>
+  <actions>
+   <action type="plone.actions.Mail">
+    <property name="source"/>
+    <property name="message">Hello ${user_fullname},
+     
+         (Versão em Português abaixo)
+         
+         The talk "${title}" you submited to our conference was accepted.
+     
+         In order to have it listed on our schedule we kindly ask you to confirm it, going to ${absolute_url}.
+     
+     Best Regards,
+     Organizers Team
+     Plone Conference 2013 / PythonBrasil [9]
+     
+     ===============================================================
+     
+     Olá ${user_fullname},
+         
+         A palestra "${title}", submetida por você, foi aceita para nossa conferência.
+     
+         Para que ela seja publicada em nossa grade, pedimos a gentileza de você confirmá-la em ${absolute_url}
+     
+     
+     Gratos,
+     Organização
+     Plone Conference 2013 / PythonBrasil [9]</property>
+    <property name="subject">Talk submission accepted</property>
+    <property name="recipients">${user_email}</property>
+    <property name="exclude_actor">False</property>
+   </action>
+  </actions>
+ </rule>
+ <rule name="training-submited" title="Training submission received"
+    description="Training submission received" enabled="True"
+    event="Products.CMFCore.interfaces.IActionSucceededEvent"
+    stop-after="False">
+  <conditions>
+   <condition type="plone.conditions.PortalType">
+    <property name="check_types">
+     <element>training</element>
+    </property>
+   </condition>
+   <condition type="plone.conditions.WorkflowState">
+    <property name="wf_states">
+     <element>created</element>
+    </property>
+   </condition>
+  </conditions>
+  <actions>
+   <action type="plone.actions.Mail">
+    <property name="source"/>
+    <property name="message">Hello ${user_fullname},
+     
+         (Versão em Português abaixo)
+         
+         Thank you for submitting the training "${title}" to our conference.
+     
+         Submissions will be open until July 31st and soon after that all selected trainings will be published.
+     
+     Best Regards,
+     Organizers Team
+     Plone Conference 2013 / PythonBrasil [9]
+     
+     ===============================================================
+     
+     Olá ${user_fullname},
+         
+         Obrigado por submeter seu treinamento "${title}" para nossa conferência.
+     
+         A chamada de trabalhos ficará aberta até 31 de Julho e logo em seguida anunciaremos os treinamentos selecionados.
+     
+     
+     Gratos,
+     Organização
+     Plone Conference 2013 / PythonBrasil [9]</property>
+    <property name="subject">Training submission received</property>
+    <property name="recipients">${user_email}</property>
+    <property name="exclude_actor">False</property>
+   </action>
+  </actions>
+ </rule>
+
+  <rule name="training-accepted" title="Training submission accepted"
+    description="Training accepted" enabled="True"
+    event="Products.CMFCore.interfaces.IActionSucceededEvent"
+    stop-after="False">
+  <conditions>
+   <condition type="plone.conditions.PortalType">
+    <property name="check_types">
+     <element>training</element>
+    </property>
+   </condition>
+   <condition type="plone.conditions.WorkflowState">
+    <property name="wf_states">
+     <element>accepted</element>
+    </property>
+   </condition>
+  </conditions>
+  <actions>
+   <action type="plone.actions.Mail">
+    <property name="source"/>
+    <property name="message">Hello ${user_fullname},
+     
+         (Versão em Português abaixo)
+         
+         The training "${title}" you submited to our conference was accepted.
+     
+         In order to have it listed on our schedule we kindly ask you to confirm it, going to ${absolute_url}.
+     
+     Best Regards,
+     Organizers Team
+     Plone Conference 2013 / PythonBrasil [9]
+     
+     ===============================================================
+     
+     Olá ${user_fullname},
+         
+         A palestra "${title}", submetida por você, foi aceita para nossa conferência.
+     
+         Para que ela seja publicada em nossa grade, pedimos a gentileza de você confirmá-la em ${absolute_url}
+     
+     
+     Gratos,
+     Organização
+     Plone Conference 2013 / PythonBrasil [9]</property>
+    <property name="subject">Training submission accepted</property>
+    <property name="recipients">${user_email}</property>
+    <property name="exclude_actor">False</property>
+   </action>
+  </actions>
+ </rule>
+</contentrules>

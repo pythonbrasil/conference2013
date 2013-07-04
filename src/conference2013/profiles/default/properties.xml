@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<site>
+ <property name="title">Plone Conference / PythonBrasil</property>
+ <property name="description">Site for Plone Conference and PythonBrasil conferences</property>
+ <property name="selectable_views" type="lines">
+  <element value="folder_listing"/>
+  <element value="news_listing"/>
+ </property>
+ <property name="email_from_address" type="string">info@ploneconf.org</property>
+ <property name="email_from_name" type="string">Organization Team</property>
+ <property name="validate_email" type="boolean">False</property>
+ <property name="email_charset" type="string">utf-8</property>
+ <property name="enable_permalink" type="boolean">False</property>
+ <property name="default_page" type="string">front-page</property>
+</site>

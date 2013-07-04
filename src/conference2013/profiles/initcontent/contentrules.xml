@@ -2,7 +2,7 @@
 <contentrules>
  <rule name="talk-submited" title="Talk submission received"
     description="Talk submission received" enabled="True"
-    event="Products.CMFCore.interfaces.IActionSucceededEvent"
+    event="zope.lifecycleevent.interfaces.IObjectAddedEvent"
     stop-after="False">
   <conditions>
    <condition type="plone.conditions.PortalType">
@@ -10,16 +10,11 @@
      <element>talk</element>
     </property>
    </condition>
-   <condition type="plone.conditions.WorkflowState">
-    <property name="wf_states">
-     <element>created</element>
-    </property>
-   </condition>
   </conditions>
   <actions>
    <action type="plone.actions.Mail">
     <property name="source"/>
-    <property name="message">Hello ${user_fullname},
+    <property name="message">Hello ${speaker_name},
      
          (Versão em Português abaixo)
          
@@ -33,7 +28,7 @@
      
      ===============================================================
      
-     Olá ${user_fullname},
+     Olá ${speaker_name},
          
          Obrigado por submeter sua palestra "${title}" para nossa conferência.
      
@@ -44,7 +39,7 @@
      Organização
      Plone Conference 2013 / PythonBrasil [9]</property>
     <property name="subject">Talk submission received</property>
-    <property name="recipients">${user_email}</property>
+    <property name="recipients">${speaker_email}</property>
     <property name="exclude_actor">False</property>
    </action>
   </actions>
@@ -65,11 +60,16 @@
      <element>accepted</element>
     </property>
    </condition>
+   <condition type="plone.conditions.WorkflowTransition">
+    <property name="wf_transitions">
+     <element>accept</element>
+    </property>
+   </condition>   
   </conditions>
   <actions>
    <action type="plone.actions.Mail">
     <property name="source"/>
-    <property name="message">Hello ${user_fullname},
+    <property name="message">Hello ${speaker_name},
      
          (Versão em Português abaixo)
          
@@ -83,7 +83,7 @@
      
      ===============================================================
      
-     Olá ${user_fullname},
+     Olá ${speaker_name},
          
          A palestra "${title}", submetida por você, foi aceita para nossa conferência.
      
@@ -94,14 +94,14 @@
      Organização
      Plone Conference 2013 / PythonBrasil [9]</property>
     <property name="subject">Talk submission accepted</property>
-    <property name="recipients">${user_email}</property>
+    <property name="recipients">${speaker_email}</property>
     <property name="exclude_actor">False</property>
    </action>
   </actions>
  </rule>
  <rule name="training-submited" title="Training submission received"
     description="Training submission received" enabled="True"
-    event="Products.CMFCore.interfaces.IActionSucceededEvent"
+    event="zope.lifecycleevent.interfaces.IObjectAddedEvent"
     stop-after="False">
   <conditions>
    <condition type="plone.conditions.PortalType">
@@ -109,16 +109,11 @@
      <element>training</element>
     </property>
    </condition>
-   <condition type="plone.conditions.WorkflowState">
-    <property name="wf_states">
-     <element>created</element>
-    </property>
-   </condition>
   </conditions>
   <actions>
    <action type="plone.actions.Mail">
     <property name="source"/>
-    <property name="message">Hello ${user_fullname},
+    <property name="message">Hello ${speaker_name},
      
          (Versão em Português abaixo)
          
@@ -132,7 +127,7 @@
      
      ===============================================================
      
-     Olá ${user_fullname},
+     Olá ${speaker_name},
          
          Obrigado por submeter seu treinamento "${title}" para nossa conferência.
      
@@ -143,7 +138,7 @@
      Organização
      Plone Conference 2013 / PythonBrasil [9]</property>
     <property name="subject">Training submission received</property>
-    <property name="recipients">${user_email}</property>
+    <property name="recipients">${speaker_email}</property>
     <property name="exclude_actor">False</property>
    </action>
   </actions>
@@ -164,11 +159,16 @@
      <element>accepted</element>
     </property>
    </condition>
+   <condition type="plone.conditions.WorkflowTransition">
+    <property name="wf_transitions">
+     <element>accept</element>
+    </property>
+   </condition>
   </conditions>
   <actions>
    <action type="plone.actions.Mail">
     <property name="source"/>
-    <property name="message">Hello ${user_fullname},
+    <property name="message">Hello ${speaker_name},
      
          (Versão em Português abaixo)
          
@@ -182,7 +182,7 @@
      
      ===============================================================
      
-     Olá ${user_fullname},
+     Olá ${speaker_name},
          
          A palestra "${title}", submetida por você, foi aceita para nossa conferência.
      
@@ -193,9 +193,142 @@
      Organização
      Plone Conference 2013 / PythonBrasil [9]</property>
     <property name="subject">Training submission accepted</property>
-    <property name="recipients">${user_email}</property>
+    <property name="recipients">${speaker_email}</property>
     <property name="exclude_actor">False</property>
    </action>
   </actions>
  </rule>
+
+ <rule name="registration-new" title="New registration"
+    description="New registration added to this conference" enabled="True"
+    event="zope.lifecycleevent.interfaces.IObjectAddedEvent"
+    stop-after="False">
+  <conditions>
+   <condition type="plone.conditions.PortalType">
+    <property name="check_types">
+     <element>registration</element>
+    </property>
+   </condition>
+  </conditions>
+  <actions>
+   <action type="plone.actions.Mail">
+    <property name="source"/>
+    <property name="message">Hello ${title},
+     
+    (Versão em Português abaixo)
+         
+     Your registration was received!
+     
+     Please do not forget to proceed with the payment of your registration. This is needed to confirm your presente in Plone Conference/PythonBrasil[9].
+     
+     To know the status of your registration, go to:
+     
+     ${url}
+     
+     Payment status are update daily.
+     
+     If you have any doubts, reply to this message.
+     
+     Best Regards,
+     Organizers Team
+     Plone Conference 2013 / PythonBrasil [9]
+     
+     ===============================================================
+     
+     Olá ${title},
+         
+     Sua inscrição no evento foi realizada!
+     
+     Não esqueça de proceder com o pagamento da taxa de inscrição para confirmar sua 
+     participação na Plone Conference/PythonBrasil[9].
+     
+     Para verificar a situação do pagamento, basta acessar:
+     
+     ${url}
+     
+     A atualização da situação do pagamento é efetuada diariamente.
+     
+     Em caso de dúvidas, basta responder a este e-mail.     
+     
+     Gratos,
+     Organização
+     Plone Conference 2013 / PythonBrasil [9] 
+    </property>
+    <property
+       name="subject">Plone Conference/PythonBrasil[9]: Registration received</property>
+    <property name="recipients">${content_email}</property>
+    <property name="exclude_actor">False</property>
+   </action>
+  </actions>
+ </rule>
+
+ <rule name="registration-confirmed" title="Confirmed registration"
+    description="A registration is confirmed in this conference"
+    enabled="True" event="Products.CMFCore.interfaces.IActionSucceededEvent"
+    stop-after="False">
+  <conditions>
+   <condition type="plone.conditions.PortalType">
+    <property name="check_types">
+     <element>registration</element>
+    </property>
+   </condition>
+   <condition type="plone.conditions.WorkflowTransition">
+    <property name="wf_transitions">
+     <element>confirm</element>
+    </property>
+   </condition>
+   <condition type="plone.conditions.WorkflowState">
+    <property name="wf_states">
+     <element>confirmed</element>
+    </property>
+   </condition>
+  </conditions>
+  <actions>
+   <action type="plone.actions.Mail">
+    <property name="source"/>
+    <property name="message">Hello ${title},
+     
+    (Versão em Português abaixo)
+         
+     Your registration is complete!
+     
+     We confirmed the payment of your registration and we wait you at Plone Conference 2013 / PythonBrasil [9].
+     
+     To know the status of your registration, go to:
+     
+     ${url}
+     
+     If you have any doubts, reply to this message.
+     
+     Best Regards,
+     Organizers Team
+     Plone Conference 2013 / PythonBrasil [9]
+     
+     ===============================================================
+     
+     Olá ${title},
+         
+     Sua inscrição no evento foi realizada!
+     
+     Não esqueça de proceder com o pagamento da taxa de inscrição para confirmar sua 
+     participação na Plone Conference 2013 / PythonBrasil [9].
+     
+     Para verificar a situação da sua inscrição, basta acessar:
+     
+     ${url}
+     
+     Em caso de dúvidas, basta responder a este e-mail.     
+     
+     Gratos,
+     Organização
+     Plone Conference 2013 / PythonBrasil [9] 
+    </property>
+    <property
+       name="subject">PythonBrasil[7]: Inscrição confirmada</property>
+    <property name="recipients">${content_email}</property>
+    <property name="exclude_actor">False</property>
+   </action>
+  </actions>
+ </rule>
+
 </contentrules>

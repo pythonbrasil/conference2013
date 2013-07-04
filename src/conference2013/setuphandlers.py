@@ -209,7 +209,7 @@ def create_program(p):
     add_tracks(pc, PC_TRACKS)
 
 
-def setup_contentrules(program):
+def setup_contentrules_program(program):
     assignable = IRuleAssignmentManager(program, None)
     if assignable is None:
         return None
@@ -220,6 +220,26 @@ def setup_contentrules(program):
         'talk-accepted',
         'training-submited',
         'training-accepted',
+    ]
+    for name in names:
+        assignment = assignable.get(name, None)
+        if assignment is None:
+            assignment = assignable[name] = RuleAssignment(name)
+        assignment.enabled = True
+        assignment.bubbles = True
+
+        get_assignments(storage[name]).insert(path)
+
+
+def setup_contentrules_registration(registrations):
+    assignable = IRuleAssignmentManager(registrations, None)
+    if assignable is None:
+        return None
+    storage = getUtility(IRuleStorage)
+    path = '/'.join(registrations.getPhysicalPath())
+    names = [
+        'registration-new',
+        'registration-confirmed',
     ]
     for name in names:
         assignment = assignable.get(name, None)
@@ -250,4 +270,5 @@ def setup_portal(context):
     # Create Program
     create_program(site)
     # Setup content rules
-    setup_contentrules(site.program)
+    setup_contentrules_registration(site.register)
+    setup_contentrules_program(site.program)

@@ -175,6 +175,7 @@ def create_program(p):
     pb.setImmediatelyAddableTypes(['track'])
     pb.setLayout('folder_summary_view')
     pb.setLanguage('pt-br')
+    p.portal_workflow.doActionFor(pb, 'publish')
 
     _createObjectByType('Folder', o, id='pc',
                         title='Plone Conference',
@@ -185,6 +186,8 @@ def create_program(p):
     pc.setImmediatelyAddableTypes(['track'])
     pc.setLayout('folder_summary_view')
     pc.setLanguage('en')
+    p.portal_workflow.doActionFor(pc, 'publish')
+
     permission = 'apyb.conference: Add Track'
     o.manage_permission(permission,
                         roles=['Manager', 'Editor'],

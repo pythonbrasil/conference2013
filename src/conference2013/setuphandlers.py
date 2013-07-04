@@ -16,19 +16,29 @@ logger = logging.getLogger(PROJECTNAME)
 
 TRACKS = [
     ('keynotes', u'Keynotes'),
-    ('pb_cloud', u'Cloud, System Administration and Networks'),
-    ('pb_community_education', u'Community and Education'),
-    ('pb_django', u'Django'),
-    ('pb_enterprise_management', u'Enterprise and Management'),
-    ('pb_media_networks', u'Media and Networks'),
-    ('pb_mobility_embedded_systems', u'Mobility and Embedded Systems'),
-    ('plone', u'Plone Conference'),
-    ('pyramid', u'Pyramid'),
-    ('pb_scipy', u'Scipy'),
-    ('pb_web_wevelopment', u'Web Development'),
-    ('pb_other', u'Other')
+    ('training', u'Training Sessions'),
 ]
 
+PB_TRACKS = [
+    ('cloud', u'Cloud, System Administration and Networks'),
+    ('community_education', u'Community and Education'),
+    ('django', u'Django'),
+    ('enterprise_management', u'Enterprise and Management'),
+    ('media_networks', u'Media and Networks'),
+    ('mobility_embedded_systems', u'Mobility and Embedded Systems'),
+    ('pyramid', u'Pyramid'),
+    ('scipy', u'Scipy'),
+    ('web_wevelopment', u'Web Development'),
+    ('other', u'Other')
+]
+
+PC_TRACKS = [
+    ('gov', u'Plone in the Government'),
+    ('core', u'Plone Core'),
+    ('plone_cases', u'Plone Success Cases'),
+    ('plone_edu', u'Plone in Education'),
+    ('addons', u'Plone Addons'),
+]
 
 REMOVE = [
     'events',
@@ -156,6 +166,25 @@ def create_program(p):
                             roles=[],
                             acquire=0)
     o = p[oId]
+    _createObjectByType('Folder', o, id='pb',
+                        title='Python Brasil',
+                        description='Trilhas da PythonBrasil')
+    pb = o['pb']
+    pb.setConstrainTypesMode(constraintypes.ENABLED)
+    pb.setLocallyAllowedTypes(['track'])
+    pb.setImmediatelyAddableTypes(['track'])
+    pb.setLayout('folder_summary_view')
+    pb.setLanguage('pt-br')
+
+    _createObjectByType('Folder', o, id='pc',
+                        title='Plone Conference',
+                        description='Plone Conference Tracks')
+    pc = o['pc']
+    pc.setConstrainTypesMode(constraintypes.ENABLED)
+    pc.setLocallyAllowedTypes(['track'])
+    pc.setImmediatelyAddableTypes(['track'])
+    pc.setLayout('folder_summary_view')
+    pc.setLanguage('en')
     permission = 'apyb.conference: Add Track'
     o.manage_permission(permission,
                         roles=['Manager', 'Editor'],
@@ -165,11 +194,16 @@ def create_program(p):
                         roles=['Manager', 'Editor', 'Member'],
                         acquire=0)
     logger.info('Program created')
-    # Add Tracks
-    for track_id, track_title in TRACKS:
-        _createObjectByType('track', o, id=track_id,
-                            title=track_title)
-        logger.info('Track %s created' % track_title)
+
+    def add_tracks(base, tracks):
+        for track_id, track_title in tracks:
+            _createObjectByType('track', base, id=track_id,
+                                title=track_title)
+            logger.info('Track %s created' % track_title)
+
+    add_tracks(o, TRACKS)
+    add_tracks(pb, PB_TRACKS)
+    add_tracks(pc, PC_TRACKS)
 
 
 def setup_contentrules(program):

@@ -238,6 +238,7 @@ def setup_contentrules_registration(registrations):
     storage = getUtility(IRuleStorage)
     path = '/'.join(registrations.getPhysicalPath())
     names = [
+        'registration-rule-transition',
         'registration-new',
         'registration-confirmed',
     ]

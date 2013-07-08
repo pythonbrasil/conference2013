@@ -1,0 +1,19 @@
+    <tal:tracks tal:repeat="track options/tracks">
+    <div tal:attributes="id track/id" class="track"
+          tal:define="cfp view/can_submit;
+                      track_obj track/getObject;
+                      scale track_obj/@@images;
+                      img python:scale.scale('image', width=80, height=80, direction='keep');">
+        <a href="" tal:attributes="href string:${track/getURL}"><img tal:condition="img"
+             tal:replace="structure python:img.tag()"/></a>
+        <a href="" tal:attributes="href string:${track/getURL}"><span class="track_title" tal:content="track/Title">Plone</span></a><br />
+        <span class="discreet" tal:content="track/Description">Plone is a CMS written in Python</span><br />
+        <a href="" tal:condition="python:(track.getId not in ('keynotes', 'training')) and cfp" 
+           tal:attributes="href string:${track/getURL}/@@new-talk"
+           i18n:translate="">Submit talk proposal here</a>
+        <a href="" tal:condition="python:(track.getId in ('training')) and cfp" 
+           tal:attributes="href string:${track/getURL}/@@new-training"
+           i18n:translate="">Submit training proposal here</a>
+
+    </div>
+    </tal:tracks>

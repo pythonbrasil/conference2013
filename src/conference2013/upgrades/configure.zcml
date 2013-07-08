@@ -4,5 +4,6 @@
     xmlns:gs="http://namespaces.zope.org/genericsetup"
     i18n_domain="conference2013">
 
+	<include package=".v2000" />
   
 </configure>

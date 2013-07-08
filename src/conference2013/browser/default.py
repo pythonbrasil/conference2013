@@ -1,10 +1,12 @@
 # -*- coding:utf-8 -*-
+from conference2013.interfaces import IConference2013
 from five import grok
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 
 
 class DefaultPageView(grok.View):
     grok.context(IPloneSiteRoot)
+    grok.layer(IConference2013)
     grok.require('zope2.View')
     grok.name('front-page')
 

@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<layers>
+ <layer
+     name="conference2013"
+     interface="conference2013.interfaces.IConference2013"
+     />
+</layers>
